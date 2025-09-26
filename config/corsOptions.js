@@ -1,7 +1,7 @@
 const allowedOrigins = [
   'http://localhost:5173',
   'http://127.0.0.1:3000',
-  'https://biodeck-pt6g.onrender.com/login' 
+  'https://biodeck-pt6g.onrender.com' 
 ];
 
 const corsOptions = {
