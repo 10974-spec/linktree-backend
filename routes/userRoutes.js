@@ -5,7 +5,8 @@ const {
   updateProfile, 
   updateTheme,
   uploadAvatar,
-  deleteAccount 
+  deleteAccount, 
+  getPublicProfile
 } = require('../controllers/userController');
 const upload = require('../middleware/uploadMiddleware');
 
@@ -18,5 +19,6 @@ router.put('/profile', updateProfile);
 router.put('/theme', updateTheme);
 router.post('/avatar', upload.single('avatar'), uploadAvatar);
 router.delete('/account', deleteAccount);
+router.get('/public/:username', getPublicProfile);
 
 module.exports = router;

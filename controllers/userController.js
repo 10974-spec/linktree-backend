@@ -112,10 +112,46 @@ const deleteAccount = async (req, res) => {
   }
 };
 
+
+
+
+const getPublicProfile = async (req, res) => {
+  try {
+    const { username } = req.params;
+
+    // Find user by username, exclude sensitive data
+    const user = await User.findOne({ username })
+      .select('-password -email -isVerified -createdAt -updatedAt');
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Get user's active links
+    const links = await Link.find({ 
+      user: user._id, 
+      isActive: true 
+    }).sort({ position: 1 }).select('-user -__v');
+
+    res.json({
+      user: {
+        id: user._id,
+        username: user.username,
+        profile: user.profile
+      },
+      links
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+
 module.exports = {
   getProfile,
   updateProfile,
   updateTheme,
   uploadAvatar,
-  deleteAccount
+  deleteAccount,
+  getPublicProfile
 };
