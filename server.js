@@ -69,3 +69,13 @@ app.listen(PORT, () => {
 app.use((req, res) => {
   res.status(404).json({ message: 'Route not found' });
 });
+
+
+if (process.env.NODE_ENV === 'production') {
+  app.use((err, req, res, next) => {
+    res.status(500).json({
+      message: 'Something went wrong!',
+      error: {}
+    });
+  });
+}
