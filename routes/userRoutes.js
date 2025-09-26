@@ -12,6 +12,8 @@ const upload = require('../middleware/uploadMiddleware');
 
 const router = express.Router();
 
+router.get('/public/:username', getPublicProfile);
+
 router.use(protect); // All routes require authentication
 
 router.get('/profile', getProfile);
@@ -19,6 +21,6 @@ router.put('/profile', updateProfile);
 router.put('/theme', updateTheme);
 router.post('/avatar', upload.single('avatar'), uploadAvatar);
 router.delete('/account', deleteAccount);
-router.get('/public/:username', getPublicProfile);
+
 
 module.exports = router;
